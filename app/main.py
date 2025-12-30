@@ -66,7 +66,7 @@ if __name__ == "__main__":
     settings = get_settings()
     uvicorn.run(
         "app.main:app",
-        host="0.0.0.0",
+        host="0.0.0.0", # nosec B104
         port=8000,
         reload=settings.environment == "development"
     )
