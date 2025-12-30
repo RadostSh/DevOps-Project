@@ -12,6 +12,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Security Scan (SAST)
+        run: |
+          pip install bandit
+          bandit -r . -x tests -ll
+
       - name: Build Docker Image
         run: docker build -t slack-bot:latest .
 
