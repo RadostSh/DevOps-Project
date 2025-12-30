@@ -1,0 +1,22 @@
+name: Slack Bot CI/CD
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: docker build -t slack-bot:latest .
+
+      - name: Deploy to Local Kubernetes
+        run: |
+          kubectl apply -f k8s/deployment.yaml
+          
+          kubectl rollout restart deployment/slack-bot-deployment
