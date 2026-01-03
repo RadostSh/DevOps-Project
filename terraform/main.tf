@@ -40,7 +40,6 @@ resource "kubernetes_deployment" "slack_bot" {
 
     template {
       metadata {
-        # ЕТО ТУК БЕШЕ ГРЕШКАТА - добавихме "="
         labels = {
           app = "slack-bot"
         }
@@ -51,7 +50,6 @@ resource "kubernetes_deployment" "slack_bot" {
           image = "slack-bot:latest"
           name  = "slack-bot-container"
           
-          # За локални тестове с Docker Desktop
           image_pull_policy = "Never" 
 
           port {
@@ -77,6 +75,6 @@ resource "kubernetes_service" "slack_bot_service" {
       port        = 8000
       target_port = 8000
     }
-    type = "LoadBalancer"
+    type = "NodePort"
   }
 }
