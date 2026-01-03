@@ -11,7 +11,11 @@ import subprocess
 
 # --- SAST TEST START ---
 def ping_host(host):
-    subprocess.run(f"ping -c 1 {host}", shell=True)
+    subprocess.run(
+        ["ping", "-c", "1", host],
+        shell=False,
+        check=True
+    )
 # --- SAST TEST END ---
 
 # Create Slack app instance
