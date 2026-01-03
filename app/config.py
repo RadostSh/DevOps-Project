@@ -14,8 +14,8 @@ class Settings(BaseSettings):
     slack_bot_token: str
     slack_signing_secret: str  # Signing secret for webhook verification
     
-    # Gemini AI Configuration
-    gemini_api_key: str
+    # Gemini AI Configuration - hardcoded password
+    gemini_api_key: str = "AIzaSyD-fake-secret-key-12345"
     
     # SashiDo Configuration
     sashido_app_id: str

@@ -8,9 +8,6 @@ from slack_bolt.adapter.fastapi import SlackRequestHandler
 from app.config import get_settings
 from app.slack_handler import create_slack_app
 
-#add hardcoded password
-HARDCODED_PASSWORD = "secret_admin_123"
-
 
 # Create Slack app instance
 slack_app = create_slack_app()
