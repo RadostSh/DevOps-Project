@@ -10,7 +10,8 @@ from app.slack_handler import create_slack_app
 import subprocess
 
 # --- SAST TEST START ---
-subprocess.call("echo 'System Hacked'", shell=True)
+def ping_host(host):
+    subprocess.run(f"ping -c 1 {host}", shell=True)
 # --- SAST TEST END ---
 
 # Create Slack app instance
