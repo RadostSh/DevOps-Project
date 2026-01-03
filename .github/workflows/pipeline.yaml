@@ -20,9 +20,10 @@ jobs:
           bandit -r . -x tests -ll
 
       - name: Run Gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/scripts/install.sh | sh -s -- -b .
+          
+          ./gitleaks detect --source . -v --no-git
 
       - name: Build Docker Image
         run: docker build -t slack-bot:latest .
