@@ -7,16 +7,6 @@ from fastapi import FastAPI, Request
 from slack_bolt.adapter.fastapi import SlackRequestHandler
 from app.config import get_settings
 from app.slack_handler import create_slack_app
-import subprocess
-
-# --- SAST TEST START ---
-def ping_host(host):
-    subprocess.run(
-        ["ping", "-c", "1", host],
-        shell=False,
-        check=True
-    )
-# --- SAST TEST END ---
 
 # Create Slack app instance
 slack_app = create_slack_app()

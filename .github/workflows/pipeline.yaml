@@ -11,11 +11,18 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Security Scan (SAST)
         run: |
           pip install bandit
           bandit -r . -x tests -ll
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Docker Image
         run: docker build -t slack-bot:latest .

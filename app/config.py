@@ -10,12 +10,12 @@ from typing import Optional
 class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
     
-    # Slack Configuration - hardcoded password
-    slack_bot_token: str = "AIzaSyAD2KjnzjohbGSeOpA3WD82lfZDJ"
+    # Slack Configuration
+    slack_bot_token: str
     slack_signing_secret: str  # Signing secret for webhook verification
     
-    # Gemini AI Configuration
-    gemini_api_key: str
+    # Gemini AI Configuration - hardcoded password
+    gemini_api_key: str = "AIzaSyAD2KjnzjohbGSeOpA3WD82lfZDJ"
     
     # SashiDo Configuration
     sashido_app_id: str
