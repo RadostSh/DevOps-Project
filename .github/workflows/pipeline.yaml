@@ -19,9 +19,18 @@ jobs:
 
       - name: Build Docker Image
         run: docker build -t slack-bot:latest .
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
 
-      - name: Deploy to Local Kubernetes
-        run: |
-          kubectl apply -f k8s/deployment.yaml
-          
-          kubectl rollout restart deployment/slack-bot-deployment
+      - name: Terraform Init
+        run: terraform -chdir=terraform init
+
+      - name: Terraform Validate
+        run: terraform -chdir=terraform validate
+
+      - name: Terraform Apply (Deploy to K8s)
+        run: terraform -chdir=terraform apply -auto-approve
+        
