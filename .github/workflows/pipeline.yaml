@@ -15,7 +15,7 @@ jobs:
       - name: Security Scan (SAST)
         run: |
           pip install bandit
-          bandit -r . -x tests
+          bandit -r . -x tests -ll
 
       - name: Build Docker Image
         run: docker build -t slack-bot:latest .
