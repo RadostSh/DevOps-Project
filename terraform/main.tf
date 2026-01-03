@@ -9,15 +9,17 @@ terraform {
 
 provider "kubernetes" {
   config_path    = "~/.kube/config"
-  config_context = "docker-desktop" # Увери се, че това е името на контекста ти
+  config_context = "docker-desktop"
 }
 
+# 1. Namespace
 resource "kubernetes_namespace" "app_ns" {
   metadata {
     name = "slack-bot-iac"
   }
 }
 
+# 2. Deployment
 resource "kubernetes_deployment" "slack_bot" {
   metadata {
     name      = "slack-bot-deployment"
@@ -28,7 +30,7 @@ resource "kubernetes_deployment" "slack_bot" {
   }
 
   spec {
-    replicas = 1 # Един бот е достатъчен
+    replicas = 1
 
     selector {
       match_labels = {
@@ -38,7 +40,8 @@ resource "kubernetes_deployment" "slack_bot" {
 
     template {
       metadata {
-        labels {
+        # ЕТО ТУК БЕШЕ ГРЕШКАТА - добавихме "="
+        labels = {
           app = "slack-bot"
         }
       }
@@ -48,18 +51,19 @@ resource "kubernetes_deployment" "slack_bot" {
           image = "slack-bot:latest"
           name  = "slack-bot-container"
           
+          # За локални тестове с Docker Desktop
           image_pull_policy = "Never" 
 
           port {
             container_port = 8000
           }
-
         }
       }
     }
   }
 }
 
+# 3. Service
 resource "kubernetes_service" "slack_bot_service" {
   metadata {
     name      = "slack-bot-service"
