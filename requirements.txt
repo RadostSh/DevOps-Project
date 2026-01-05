@@ -17,3 +17,4 @@ pydantic-settings==2.1.0
 # HTTP Client
 httpx==0.26.0
 
+starlette==0.40.0
